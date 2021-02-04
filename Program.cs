@@ -16,7 +16,12 @@ namespace CursovaGUI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            var contr = new Controller();
+            var model = new Model(contr);
+            contr.Model = model;
+            var form = new Form1(contr);
+            contr.Form = form;
+            Application.Run(form);
         }
     }
 }
