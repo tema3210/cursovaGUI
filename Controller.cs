@@ -14,7 +14,7 @@ namespace CursovaGUI
         #region Form_Actions
         public void Exit()
         {
-
+            
         }
         public void About()
         {

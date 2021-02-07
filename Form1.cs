@@ -48,5 +48,10 @@ namespace CursovaGUI
         {
             this.controller.Action();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.controller.Action();
+        }
     }
 }
