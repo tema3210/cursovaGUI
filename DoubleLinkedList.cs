@@ -16,6 +16,7 @@ namespace CursovaGUI
         {
             this.Data = val;
         }
+
         public T Data { get; set; }
         public DoubleLinkedList<T> Next;
         public DoubleLinkedList<T> Prev;

@@ -8,11 +8,11 @@ namespace CursovaGUI
 {
     class ListManager<T>
     {
-        ListManager(T[] members)
+        public ListManager(List<T> members)
         {
             var head = new DoubleLinkedList<T>(members[0]);
             this.inner = head;
-            for (int i = 1;i<members.Length;i++)
+            for (int i = 1;i<members.Count;i++)
             {
                 this.inner.InsertForward(members[i]);
                 this.inner = this.inner.Next;

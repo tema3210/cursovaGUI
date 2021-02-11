@@ -23,5 +23,8 @@ namespace CursovaGUI
             contr.Form = form;
             Application.Run(form);
         }
+
+        public static void stopProgram() => Application.Exit();
+        
     }
 }
