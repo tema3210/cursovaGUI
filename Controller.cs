@@ -20,7 +20,7 @@ namespace CursovaGUI
         }
         public void About()
         {
-            MessageBox.Show("Зробив Бакаев.А.О; гр. 471; КІСІТ КНЕУ", "О программе");
+            MessageBox.Show("Зробив Бакаев.А.О; гр. 471; КІСІТ КНЕУ", "Про програму");
         }
         public void Manual()
         {
