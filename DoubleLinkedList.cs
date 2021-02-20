@@ -9,7 +9,7 @@ namespace CursovaGUI
     /// <summary>
     ///  This is double linked list that is not thread safe
     /// </summary>
-    /// <typeparam name="T"> Datatype that list holds</typeparam>
+    /// <typeparam name="T"> Datatype that list holds </typeparam>
     class DoubleLinkedList<T>
     {
         public DoubleLinkedList(T val)

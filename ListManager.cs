@@ -25,6 +25,8 @@ namespace CursovaGUI
                 }
                 this.inner.Next = head;
                 head.Prev = this.inner;
+
+                this.inner = head;
             }
             else
             {

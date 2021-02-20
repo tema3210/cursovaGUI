@@ -12,10 +12,7 @@ namespace CursovaGUI
         int k = 0;
         ListManager<String> inner;
 
-
-         public List<String> result { get; private set; }
-
-
+        public List<String> result { get; private set; }
 
         public Model(Controller c)
         {
@@ -24,7 +21,6 @@ namespace CursovaGUI
 
         public void InsertList(List<String> lst)
         {
-            
             this.inner = new ListManager<String>(lst);
         }
 

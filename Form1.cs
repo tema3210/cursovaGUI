@@ -34,7 +34,7 @@ namespace CursovaGUI
             for (int i = 0; i < this.dataGridView1.RowCount; i++)
             {
                 var info = this.dataGridView1.Rows[i].Cells[0].Value;
-                if (info != null && info != "")
+                if (info != null && (string)info != "")
                 {
                     ret.Add((string)info);
                 }
@@ -45,6 +45,7 @@ namespace CursovaGUI
         public void DisplayInputData(String data)
         {
             var splited = data.Split('\n');
+            this.dataGridView1.Rows.Clear();
             foreach(var i in splited)
             {
                 if (i != null && i != "")
@@ -55,7 +56,7 @@ namespace CursovaGUI
 
         public int GetK()
         {
-            return 2;
+            return (int)this.numericUpDown1.Value;
         }
         #endregion
  
