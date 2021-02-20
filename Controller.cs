@@ -20,11 +20,15 @@ namespace CursovaGUI
         }
         public void About()
         {
-            System.Windows.Forms.MessageBox.Show("Зробив Бакаев.А.О; гр. 471; КІСІТ КНЕУ", "О программе");
+            MessageBox.Show("Зробив Бакаев.А.О; гр. 471; КІСІТ КНЕУ", "О программе");
         }
         public void Manual()
         {
-            Help.ShowHelp(Form, "file://.\\help.chm");
+            if (System.IO.File.Exists(@".\Manual.chm"))
+            {
+                Help.ShowHelp(Form, @".\Manual.chm");
+            }
+            
         }
         public void Save()
         {
