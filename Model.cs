@@ -12,6 +12,11 @@ namespace CursovaGUI
         int k = 0;
         ListManager<String> inner;
 
+
+         public List<String> result { get; private set; }
+
+
+
         public Model(Controller c)
         {
             this.controller = c;
@@ -19,6 +24,7 @@ namespace CursovaGUI
 
         public void InsertList(List<String> lst)
         {
+            
             this.inner = new ListManager<String>(lst);
         }
 
@@ -27,13 +33,20 @@ namespace CursovaGUI
             this.k = k;
         }
 
-        public List<String> Process()
+        public void Process()
         {
             var ret = new List<String>();
-            foreach (var i in this.inner.Task(this.k)) {
+
+            //TODO: fix a bug
+            var iter = this.inner.Task(k);
+
+            foreach (var i in iter) {
                 ret.Add(i);
             };
-            return ret;
+
+            this.result = ret;
+
+            controller.setlist(ret);
         }
     }
 }

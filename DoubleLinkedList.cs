@@ -14,7 +14,14 @@ namespace CursovaGUI
     {
         public DoubleLinkedList(T val)
         {
-            this.Data = val;
+            if (val != null)
+            {
+                this.Data = val;
+            } else
+            {
+                throw new ArgumentException("empty val");
+            }
+            
         }
 
         public T Data { get; set; }

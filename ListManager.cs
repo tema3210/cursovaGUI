@@ -8,17 +8,28 @@ namespace CursovaGUI
 {
     class ListManager<T>
     {
+        /// <summary>
+        /// argument must be not empty, else it will create ill-formed manager
+        /// </summary>
+        /// <param name="members"></param>
         public ListManager(List<T> members)
         {
-            var head = new DoubleLinkedList<T>(members[0]);
-            this.inner = head;
-            for (int i = 1;i<members.Count;i++)
+            if (members.Count > 0)
             {
-                this.inner.InsertForward(members[i]);
-                this.inner = this.inner.Next;
+                var head = new DoubleLinkedList<T>(members[0]);
+                this.inner = head;
+                for (int i = 0; i < members.Count; i++)
+                {
+                    this.inner.InsertForward(members[i]);
+                    this.inner = this.inner.Next;
+                }
+                this.inner.Next = head;
+                head.Prev = this.inner;
             }
-            this.inner.Next = head;
-            head.Prev = this.inner;
+            else
+            {
+                throw new ArgumentException("empty list");
+            };
         }
 
         public IEnumerable<T> Task(int k)
@@ -33,7 +44,11 @@ namespace CursovaGUI
                 //We save next item
                 var t = curr.Next;
                 //then we yield an item, excluding it from a list
-                yield return curr.Consume();
+                var item = curr.Consume();
+                if (item != null)
+                {
+                    yield return item;
+                }
                 // we fix iter: make it point into a sequence
                 curr = t;
             };

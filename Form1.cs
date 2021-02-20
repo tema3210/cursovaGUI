@@ -31,11 +31,26 @@ namespace CursovaGUI
         public List<String> GetInput()
         {
             var ret = new List<String>();
-            for (int i = 1; i < this.dataGridView1.RowCount; i++)
+            for (int i = 0; i < this.dataGridView1.RowCount; i++)
             {
-                ret.Add((String)this.dataGridView1.Rows[i].Cells[0].Value);
+                var info = this.dataGridView1.Rows[i].Cells[0].Value;
+                if (info != null && info != "")
+                {
+                    ret.Add((string)info);
+                }
             }
             return ret;
+        }
+        
+        public void DisplayInputData(String data)
+        {
+            var splited = data.Split('\n');
+            foreach(var i in splited)
+            {
+                if (i != null && i != "")
+                    this.dataGridView1.Rows.Add(i);
+            }
+            
         }
 
         public int GetK()
