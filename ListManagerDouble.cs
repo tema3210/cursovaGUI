@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace CursovaGUI
 {
+    //There is a bug
     class ListManagerDouble : ListManager<String>
     {
         public ListManagerDouble(List<String> arg): base(arg) { }
@@ -11,6 +12,20 @@ namespace CursovaGUI
         {
             //init iter
             var curr = this.inner;
+            //yield this data that will otherwise be lost
+            double c = 0;
+            if (Double.TryParse(curr.Data, out c))
+            {
+                if (c < 0.0)
+                {
+                    yield return curr.Consume();
+                }
+            } else
+            {
+                //ERROR
+                throw new ArgumentException("Negatives non-number");
+            }
+            
             while (curr.Prev != curr.Next)
             {
                 //advance iter
@@ -19,7 +34,7 @@ namespace CursovaGUI
                 var t = curr.Next;
                 //then we yield an item, excluding it from a list
 
-                double c = 0;
+                c = 0;
                 if (Double.TryParse(curr.Data, out c))
                 {
                     if (c < 0.0)
@@ -31,7 +46,7 @@ namespace CursovaGUI
                     }
                 } else
                 {
-                    //ERRROR
+                    //ERROR
                     throw new ArgumentException("Negatives non-number");
                 }
 

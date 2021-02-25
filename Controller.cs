@@ -104,6 +104,9 @@ namespace CursovaGUI
                     Model.InsertList(a, tsk);
 
                     Model.Process();
+
+                    //just to remove error msg
+                    Form.clearError(null,null);
                 }
                 catch (ArgumentException ex) when (ex.Message == "empty list")
                 {
@@ -115,11 +118,11 @@ namespace CursovaGUI
                 }
                 catch (ArgumentException ex) when (ex.Message == "Negatives non-number")
                 {
-                    //TODO: Show error
+                    Form.DisplayError("В обраному режимі можна вводити лише числа");
                 }
             } else
             {
-                //TODO: Show error
+                Form.DisplayError("Оберіть режим роботи");
             }
             
         }

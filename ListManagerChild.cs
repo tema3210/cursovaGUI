@@ -11,7 +11,8 @@ namespace CursovaGUI
         {
             //init iter
             var curr = this.inner;
-
+            //yield the data that will otherwise be lost
+            yield return curr.Consume();
             do
             {
                 //advance iter

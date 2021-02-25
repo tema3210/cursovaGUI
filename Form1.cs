@@ -54,10 +54,12 @@ namespace CursovaGUI
             
         }
 
-        public Task GetTask()
+        public void DisplayError(String data)
         {
-            //TODO:
-            return Task.Children;
+            this.label2.Visible = true;
+            this.label3.Visible = true;
+
+            this.label2.Text = data;
         }
 
         public int GetK()
@@ -102,8 +104,6 @@ namespace CursovaGUI
             this.controller.Action();
         }
 
-        #endregion
-
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             this.controller.SelectMode(Task.Children);
@@ -119,5 +119,13 @@ namespace CursovaGUI
         {
             this.controller.SelectMode(Task.Insertion);
         }
+
+        public void clearError(object sender, EventArgs e)
+        {
+            this.label3.Visible = false;
+            this.label2.Visible = false;
+        }
+
+        #endregion
     }
 }
