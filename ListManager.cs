@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace CursovaGUI
 {
-    class ListManager<T>
+    class CyclicListManager<T>
     {
         /// <summary>
         /// argument must be not empty, else it will create ill-formed manager
         /// </summary>
         /// <param name="members"></param>
-        public ListManager(List<T> members)
+        public CyclicListManager(List<T> members)
         {
             if (members.Count > 0)
             {
                 var head = new DoubleLinkedList<T>(members[0]);
                 this.inner = head;
-                for (int i = 0; i < members.Count; i++)
+                for (int i = 1; i < members.Count; i++)
                 {
                     this.inner.InsertForward(members[i]);
                     this.inner = this.inner.Next;
@@ -34,33 +34,43 @@ namespace CursovaGUI
             };
         }
 
-        public IEnumerable<T> Task(int k)
-        {
-            //init iter
+        public IEnumerable<T> Iter() {
+            var head = this.inner;
             var curr = this.inner;
-            while (curr.Prev != curr.Next)
+            do
             {
-                //advance iter
-                for (int i = 0; i < k; i++)
-                    curr = curr.Next;
-                //We save next item
-                var t = curr.Next;
-                //then we yield an item, excluding it from a list
-                var item = curr.Consume();
-                if (item != null)
-                {
-                    yield return item;
-                }
-                // we fix iter: make it point into a sequence
-                curr = t;
-            };
-            //the last thing in a sequence
-            yield return curr.Data;
-
-            yield break;
+                yield return curr.Data;
+                curr = curr.Next;
+            } while (head != curr);
         }
 
-        private DoubleLinkedList<T> inner;
+        public virtual CyclicListManager<U> Map<U>(Func<T,U> arg) {
+            var narg = new List<U>();
+
+            foreach(var i in this.Iter())
+            {
+                narg.Add(arg(i));
+            }
+            return new CyclicListManager<U>(narg);
+        }
+
+        public virtual IEnumerable<T> Task() { yield break; }
+
+        protected DoubleLinkedList<T> inner;
+    }
+
+    abstract class ListManager<T> : CyclicListManager<T>
+    {
+
+        public ListManager(List<T> members) : base(members) { }
+
+        public abstract override IEnumerable<T> Task();
+
+        public void Insert(T val)
+        {
+            this.inner.InsertBackward(val);
+        }
+
 
     }
 }

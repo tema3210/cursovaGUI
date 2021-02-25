@@ -54,6 +54,12 @@ namespace CursovaGUI
             
         }
 
+        public Task GetTask()
+        {
+            //TODO:
+            return Task.Children;
+        }
+
         public int GetK()
         {
             return (int)this.numericUpDown1.Value;
@@ -97,5 +103,21 @@ namespace CursovaGUI
         }
 
         #endregion
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            this.controller.SelectMode(Task.Children);
+
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            this.controller.SelectMode(Task.Negatives);
+        }
+
+        private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        {
+            this.controller.SelectMode(Task.Insertion);
+        }
     }
 }

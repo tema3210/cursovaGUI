@@ -6,6 +6,12 @@ using System.Windows.Forms;
 
 namespace CursovaGUI
 {
+    public enum Task
+    {
+        Children,
+        Negatives,
+        Insertion,
+    }
     static class Program
     {
         /// <summary>

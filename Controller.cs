@@ -13,6 +13,8 @@ namespace CursovaGUI
         public Model Model { private get; set; }
         public Form1 Form { private get; set; }
 
+        public Task? mode = null;
+
         #region Form_Actions
         public void Exit()
         {
@@ -89,24 +91,42 @@ namespace CursovaGUI
         }
         public void Action()
         {
-            try
+            if (this.mode is Task tsk)
             {
-                var a = Form.GetInput();
-                var k = Form.GetK();
+                try
+                {
+                    var a = Form.GetInput();
+                    var k = Form.GetK();
 
-                Model.SetK(k);
-                Model.InsertList(a);
+                    //this have to be done first
+                    Model.SetK(k);
+                    // before this
+                    Model.InsertList(a, tsk);
 
-                Model.Process();
-            } 
-            catch (ArgumentException ex) when (ex.Message == "empty list")
+                    Model.Process();
+                }
+                catch (ArgumentException ex) when (ex.Message == "empty list")
+                {
+                    //TODO: Process (do nothing)
+                }
+                catch (ArgumentException ex) when (ex.Message == "empty val")
+                {
+                    //TODO: Process impossible case
+                }
+                catch (ArgumentException ex) when (ex.Message == "Negatives non-number")
+                {
+                    //TODO: Show error
+                }
+            } else
             {
-                //TODO: Process (do nothing)
+                //TODO: Show error
             }
-            catch (ArgumentException ex) when (ex.Message == "empty val")
-            {
-                //TODO: Process impossible case
-            }
+            
+        }
+
+        public void SelectMode(Task mode)
+        {
+            this.mode = mode;
         }
         #endregion
 

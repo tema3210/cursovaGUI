@@ -10,7 +10,7 @@ namespace CursovaGUI
     {
         Controller controller;
         int k = 0;
-        ListManager<String> inner;
+        CyclicListManager<String> inner;
 
         public List<String> result { get; private set; }
 
@@ -19,9 +19,24 @@ namespace CursovaGUI
             this.controller = c;
         }
 
-        public void InsertList(List<String> lst)
+        public void InsertList(List<String> lst, Task tsk)
         {
-            this.inner = new ListManager<String>(lst);
+            switch (tsk)
+            {
+                case Task.Children:
+                    var tmp = new ListManagerChild(lst);
+                    tmp.k = k;
+                    this.inner = tmp;
+                    break;
+                case Task.Insertion:
+                    var tmp2 = new ListManagerInsert(lst);
+                    tmp2.el = "INSERTED ELEMENT";
+                    this.inner = tmp2;
+                    break;
+                case Task.Negatives:
+                    this.inner = new ListManagerDouble(lst);
+                    break;
+            }       
         }
 
         public void SetK(int k)
@@ -32,9 +47,7 @@ namespace CursovaGUI
         public void Process()
         {
             var ret = new List<String>();
-
-            //TODO: fix a bug
-            var iter = this.inner.Task(k);
+            var iter = this.inner.Task();
 
             foreach (var i in iter) {
                 ret.Add(i);

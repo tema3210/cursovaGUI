@@ -55,6 +55,9 @@
     </Compile>
     <Compile Include="DoubleLinkedList.cs" />
     <Compile Include="ListManager.cs" />
+    <Compile Include="ListManagerChild.cs" />
+    <Compile Include="ListManagerDouble.cs" />
+    <Compile Include="ListManagerInsert.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
