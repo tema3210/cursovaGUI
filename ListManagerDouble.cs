@@ -13,9 +13,9 @@ namespace CursovaGUI
             //init iter
             var curr = this.inner;
 
+            double c = 0.0;
             do
             {
-                double c = 0.0;
                 string data = curr.Data.Trim();
                 if (Double.TryParse(data,out c))
                 {
@@ -30,11 +30,54 @@ namespace CursovaGUI
                         curr.Consume();
                         curr = t;
                     };
+                    c = 0.0;
                 } else
                 {
                     throw new ArgumentException("Negatives non-number");
                 };
             } while (curr.Prev != curr.Next);
+
+            var last = curr.Next;
+            //the last things in a sequence
+            if (last != null && last != curr)
+            {
+                var item = curr.Consume();
+                if (item != null)
+                {
+                    if (Double.TryParse(item,out c))
+                    {
+                        if (c > 0.0)
+                        {
+                            yield return item;
+                            c = 0.0;
+                        }
+                    }
+                }
+                //yield return curr.Consume();
+                item = last.Consume();
+                if (item != null)
+                {
+                    if (Double.TryParse(item, out c))
+                    {
+                        if (c > 0.0)
+                        {
+                            yield return item;
+                            c = 0.0;
+                        }
+                    }
+                }
+            } else if (curr == last)
+            {
+                var item = curr.Data;
+                if (Double.TryParse(item, out c))
+                {
+                    if (c > 0.0)
+                    {
+                        yield return item;
+                        c = 0.0;
+                    }
+                }
+            }
 
             yield break;
         }

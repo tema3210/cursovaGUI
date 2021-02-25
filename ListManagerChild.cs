@@ -29,8 +29,26 @@ namespace CursovaGUI
                     curr = curr.Next;
             } while (curr.Prev != curr.Next);
 
-            //the last thing in a sequence
-            yield return curr.Data;
+            var last = curr.Next;
+            //the last things in a sequence
+            if (last != null && last != curr)
+            {
+                var item = curr.Consume();
+                if (item != null)
+                {
+                    yield return item;
+                }
+                //yield return curr.Consume();
+                item = last.Consume();
+                if (item != null)
+                {
+                    yield return item;
+                }
+            }
+            else if (curr == last)
+            {
+                yield return curr.Data;
+            }
 
             yield break;
         }
