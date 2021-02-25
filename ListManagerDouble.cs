@@ -12,48 +12,29 @@ namespace CursovaGUI
         {
             //init iter
             var curr = this.inner;
-            //yield this data that will otherwise be lost
-            double c = 0;
-            if (Double.TryParse(curr.Data, out c))
-            {
-                if (c < 0.0)
-                {
-                    yield return curr.Consume();
-                }
-            } else
-            {
-                //ERROR
-                throw new ArgumentException("Negatives non-number");
-            }
-            
-            while (curr.Prev != curr.Next)
-            {
-                //advance iter
-                curr = curr.Next;
-                //We save next item
-                var t = curr.Next;
-                //then we yield an item, excluding it from a list
 
-                c = 0;
-                if (Double.TryParse(curr.Data, out c))
+            do
+            {
+                double c = 0.0;
+                string data = curr.Data.Trim();
+                if (Double.TryParse(data,out c))
                 {
-                    if (c < 0.0)
+                    if (c > 0)
                     {
-                        var item = curr.Consume();
-                        yield return item;
-                        // we fix iter: make it point into a sequence
+                        var t = curr.Next;
+                        yield return curr.Consume();
                         curr = t;
-                    }
+                    } else
+                    {
+                        var t = curr.Next;
+                        curr.Consume();
+                        curr = t;
+                    };
                 } else
                 {
-                    //ERROR
                     throw new ArgumentException("Negatives non-number");
-                }
-
-                
-            };
-            //the last thing in a sequence
-            yield return curr.Data;
+                };
+            } while (curr.Prev != curr.Next);
 
             yield break;
         }

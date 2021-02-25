@@ -11,13 +11,8 @@ namespace CursovaGUI
         {
             //init iter
             var curr = this.inner;
-            //yield the data that will otherwise be lost
-            yield return curr.Consume();
             do
             {
-                //advance iter
-                for (int i = 0; i < k; i++)
-                    curr = curr.Next;
                 //We save next item
                 var t = curr.Next;
                 //then we yield an item, excluding it from a list
@@ -28,6 +23,10 @@ namespace CursovaGUI
                 }
                 // we fix iter: make it point into a sequence
                 curr = t;
+
+                //advance iter
+                for (int i = 0; i < k; i++)
+                    curr = curr.Next;
             } while (curr.Prev != curr.Next);
 
             //the last thing in a sequence
