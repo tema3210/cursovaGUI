@@ -13,6 +13,14 @@ namespace CursovaGUI
         public Model Model { private get; set; }
         public Form1 Form { private get; set; }
 
+        public HelloForm HelloForm { private get; set; }
+
+        public void run()
+        {
+            this.HelloForm.Hide();
+            this.Form.Show();
+        }
+
         public Task? mode = null;
 
         #region Form_Actions
